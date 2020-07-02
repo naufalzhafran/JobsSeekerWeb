@@ -14,8 +14,6 @@ export class JobDetail extends Component {
       )
       .then((response) => {
         const data = response.data;
-
-        console.log(data);
         this.setState({
           job_detail: data,
         });
@@ -29,9 +27,13 @@ export class JobDetail extends Component {
     const { job_detail } = this.state;
 
     return (
-      <div className="job-detail">
+      <div className="detail-page">
+        <a className="back-btn btn-primary btn" href="/jobs">
+          {" "}
+          Back to Jobs
+        </a>
         {job_detail ? (
-          <React.Fragment>
+          <div className="job-detail">
             <div className="job-detail-title-group">
               <h6>
                 {job_detail.type} / {job_detail.location}
@@ -57,9 +59,9 @@ export class JobDetail extends Component {
                 />
               </div>
             </div>
-          </React.Fragment>
+          </div>
         ) : (
-          "Loading..."
+          <div className="job-detail">Loading...</div>
         )}
       </div>
     );
