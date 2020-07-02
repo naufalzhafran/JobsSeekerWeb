@@ -1,26 +1,91 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+import Login from "./pages/Login";
+import JobList from "./pages/JobList";
+import JobDetail from "./pages/JobDetail";
+import Cookies from "universal-cookie";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    is_login: undefined,
+  };
+
+  login = (is_login) => this.setState({ is_login });
+
+  handleLogout = () => {
+    const cookies = new Cookies();
+    cookies.set("is_login", false, { path: "/" });
+    this.login(false);
+  };
+
+  componentDidMount() {
+    const cookies = new Cookies();
+    this.setState({ is_login: cookies.get("is_login") === "true" });
+  }
+
+  render() {
+    const { is_login } = this.state;
+
+    return (
+      <div className="App">
+        <nav className="navbar navbar-dark bg-primary">
+          <a className="navbar-brand font-weight-bolder" href="/">
+            Jobs
+          </a>
+          {is_login ? (
+            <div
+              className="navbar-brand my-0 logout-btn"
+              onClick={this.handleLogout}
+            >
+              Log Out
+            </div>
+          ) : null}
+        </nav>
+        <div>
+          {is_login !== undefined ? (
+            <Router>
+              <Switch>
+                <Route path="/" exact>
+                  {is_login ? (
+                    <Redirect to="/jobs" />
+                  ) : (
+                    <Redirect to="/login" />
+                  )}
+                </Route>
+                <Route path="/login">
+                  {is_login ? (
+                    <Redirect to="/jobs" />
+                  ) : (
+                    <Login login={this.login} />
+                  )}
+                </Route>
+                <Route path="/jobs">
+                  {is_login ? <JobList /> : <Redirect to="/login" />}
+                </Route>
+                <Route
+                  path="/job/:id"
+                  render={(routeProps) =>
+                    is_login ? (
+                      <JobDetail {...routeProps} />
+                    ) : (
+                      <Redirect to="/login" />
+                    )
+                  }
+                />
+              </Switch>
+            </Router>
+          ) : (
+            "Loading..."
+          )}
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;

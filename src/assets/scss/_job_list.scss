@@ -1,0 +1,117 @@
+.job-list {
+  a{
+    color: black;
+  }
+  a:hover{
+    text-decoration: none;
+  }
+  .job-search {
+    display: flex;
+    margin: 3%;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    .search-btn {
+      width: 12%;
+    }
+
+    .form-group {
+      margin: 0;
+    }
+
+    .fill-form{
+      width: 35%;
+    }
+  }
+
+  .list-group {
+    margin: 3%;
+  }
+  .list-group-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .job-list-title {
+    font-weight: bolder;
+  }
+
+  .pagination {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 15px auto;
+    display: flex;
+    list-style: none;
+    outline: none;
+    > .active {
+      > a {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: #fff;
+        outline: none;
+        &:hover {
+          background-color: #007bff;
+          border-color: #007bff;
+          outline: none;
+        }
+        &:focus {
+          background-color: #007bff;
+          border-color: #007bff;
+          outline: none;
+        }
+      }
+      > span {
+        background-color: #007bff;
+        border-color: #007bff;
+        outline: none;
+        &:hover {
+          background-color: #007bff;
+          border-color: #007bff;
+          outline: none;
+        }
+        &:focus {
+          background-color: #007bff;
+          border-color: #007bff;
+          outline: none;
+        }
+      }
+    }
+    > li {
+      > a {
+        padding: 5px 10px;
+        outline: none;
+        cursor: pointer;
+        color: #007bff;
+        margin: 0 0.5rem;
+        border-radius: 5px;
+
+        &:hover {
+          background-color: #007bff;
+          border-color: #007bff;
+          color: #fff;
+          outline: none;
+        }
+      }
+      > span {
+        color: #007bff;
+        
+      }
+      &:first-child {
+        > a {
+          border-radius: 5px;
+        }
+        > span {
+          border-radius: 5px;
+        }
+      }
+      &:last-child {
+        > a {
+          border-radius: 5px;
+        }
+        > span {
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+}
